@@ -27,7 +27,7 @@ export default function VerticalLinearStepper() {
   };
 
   return (
-    <Box sx={{ backgroundColor: "pink" }}>
+    <Box sx={{ backgroundColor: "white" }}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
