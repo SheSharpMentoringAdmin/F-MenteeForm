@@ -3,44 +3,49 @@
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export interface ElementProps {
-  item: string; // Ensure this matches the structure of your elements
+  item: string;
 }
 
 export interface SelectProps {
   label: string;
   element?: ElementProps[];
+  chosenValue?: string; // Default to an empty string if undefined
+  onSelectChange?: (value: string) => void;
 }
 
-export default function SelectLabels({ label, element }: SelectProps) {
-  const [selectedValue, setSelectedValue] = React.useState("");
-
+export default function SelectLabels({
+  label,
+  element = [],
+  chosenValue = "",
+  onSelectChange,
+}: SelectProps) {
   const handleChange = (event: SelectChangeEvent) => {
-    setSelectedValue(event.target.value);
+    const value = event.target.value;
+    if (onSelectChange) {
+      onSelectChange(value); // Notify parent component
+    }
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: "50%" }}>
-        <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={selectedValue}
-          label={label} // Use dynamic label
-          onChange={handleChange}
-        >
-          {element?.map((elementItem, index) => (
-            <MenuItem key={index} value={elementItem.item}>
-              {elementItem.item}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl sx={{ m: 1, width: "50%", paddingBottom: 2 }}>
+      <InputLabel id="select-label">{label}</InputLabel>
+      <Select
+        labelId="select-label"
+        id="select"
+        value={chosenValue}
+        label={label}
+        onChange={handleChange}
+      >
+        {element.map((elementItem, index) => (
+          <MenuItem key={index} value={elementItem.item}>
+            {elementItem.item}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

@@ -8,20 +8,26 @@ import { useEffect, useState } from "react";
 import { addPersonalDetails } from "@/redux/slice/personalDetailsSlice";
 import { Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 const PersonalDetailsComponent = () => {
   const personalDetailsState = useSelector(
     (state: RootState) => state.personalDetails
   );
   const dispatch = useDispatch();
-  const [val, setVal] = useState<Dayjs | null>(null); // State to store the selected date
 
   const [values, setValues] = useState<PersonalDetails>({
     fullName: personalDetailsState?.fullName || "",
     dob: personalDetailsState?.dob || "",
     emailAddress: personalDetailsState?.emailAddress || "",
   });
+
+  const addDate = (value: Dayjs | null) => {
+    if (value !== null) {
+      const formattedDate = value.format("DD/MM/YYYY"); // Format the date as DD/MM/YYYY
+      handleChange("dob", formattedDate);
+    }
+  };
 
   const handleChange = (fieldName: keyof PersonalDetails, value: string) => {
     setValues((prevValues) => ({
@@ -43,16 +49,11 @@ const PersonalDetailsComponent = () => {
         onChange={(value) => handleChange("fullName", value)}
       />
       <DatePicker
-        label="Uncontrolled picker"
+        label="Date of birth"
         format="DD/MM/YYYY"
-        value={val}
-        onChange={(newValue) => setVal(newValue)}
-      />
-      <FormPropsTextFields
-        label="Date of Birth"
-        multiline={false}
-        value={values.dob}
-        onChange={(value) => handleChange("dob", value)}
+        value={values.dob ? dayjs(values.dob, "DD/MM/YYYY") : null}
+        onChange={(newValue) => addDate(newValue)}
+        sx={{ paddingBottom: 2 }}
       />
       <FormPropsTextFields
         label="Email Address"

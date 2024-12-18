@@ -1,4 +1,4 @@
 export enum Field {
-  SAME = "SAME",
-  DIFFERENT = "DIFFERENT",
+  SAME = "SAME FIELD",
+  DIFFERENT = "DIFFERENT FIELD",
 }

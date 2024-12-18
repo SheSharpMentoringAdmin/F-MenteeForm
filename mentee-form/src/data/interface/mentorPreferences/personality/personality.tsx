@@ -1,4 +1,4 @@
 export enum Personality {
-  SAME = "SAME",
-  DIFFERENT = "DIFFERENT",
+  SAME = "SAME PERSONALITY",
+  DIFFERENT = "DIFFERENT PERSONALITY",
 }

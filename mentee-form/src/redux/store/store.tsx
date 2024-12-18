@@ -3,6 +3,7 @@ import personalDetailsReducer from "../slice/personalDetailsSlice";
 import professionalBackgroundReducer from "../slice/professionalBackgroundSlice";
 import skillsReducer from "../slice/skillsSlice";
 import goalsReducer from "../slice/goalsSlice";
+import mentorPreferencesReducer from "../slice/mentorPreferenceSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     professionalBackground: professionalBackgroundReducer,
     skills: skillsReducer,
     goals: goalsReducer,
+    mentorPreferences: mentorPreferencesReducer,
   },
 });
 
