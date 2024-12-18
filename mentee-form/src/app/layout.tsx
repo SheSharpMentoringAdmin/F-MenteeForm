@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body>
+      <body suppressHydrationWarning>
         <Provider store={store}>{children}</Provider>
       </body>
     </html>
