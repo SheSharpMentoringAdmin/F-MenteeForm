@@ -2,9 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import FormPropsTextFields from "../textfield";
 import { RootState } from "@/redux/store/store";
 import { useEffect, useState } from "react";
-import { Skills } from "@/data/interface/skills/skills";
-import { addSkills } from "@/redux/slice/skillsSlice";
 import { Goals } from "@/data/interface/goals/goals";
+import { addGoals } from "@/redux/slice/goalsSlice";
 
 const GoalsComponent = () => {
   const goalsState = useSelector((state: RootState) => state.goals);
@@ -13,10 +12,10 @@ const GoalsComponent = () => {
   const [values, setValues] = useState<Goals>({
     levelOfAgency: goalsState?.levelOfAgency || "",
     matters: goalsState?.matters || "",
-    
+    mentoringGoal: goalsState?.mentoringGoal || "",
   });
 
-  const handleChange = (fieldName: keyof Skills, value: string) => {
+  const handleChange = (fieldName: keyof Goals, value: string) => {
     setValues((prevValues) => ({
       ...prevValues,
       [fieldName]: value,
@@ -24,26 +23,29 @@ const GoalsComponent = () => {
   };
 
   useEffect(() => {
-    dispatch(addSkills(values));
+    dispatch(addGoals(values));
   }, [values, dispatch]);
 
   return (
     <div>
       <FormPropsTextFields
-              multiline={true}
-              label="What level of agency (?) do you feel you have with your career?" value={""} onChange={function (value: string): void {
-                  throw new Error("Function not implemented.");
-              } }      />
+        multiline={true}
+        label="What level of agency (?) do you feel you have with your career?"
+        value={values.levelOfAgency}
+        onChange={(value) => handleChange("levelOfAgency", value)}
+      />
       <FormPropsTextFields
-              multiline={true}
-              label="What matters most to you with your career in the foreseeable future?" value={""} onChange={function (value: string): void {
-                  throw new Error("Function not implemented.");
-              } }      />
+        multiline={true}
+        label="What matters most to you with your career in the foreseeable future?"
+        value={values.matters}
+        onChange={(value) => handleChange("matters", value)}
+      />
       <FormPropsTextFields
-              multiline={true}
-              label="Why would you like a mentor / what would you like to get out of mentoring?" value={""} onChange={function (value: string): void {
-                  throw new Error("Function not implemented.");
-              } }      />
+        multiline={true}
+        label="Why would you like a mentor / what would you like to get out of mentoring?"
+        value={values.mentoringGoal}
+        onChange={(value) => handleChange("mentoringGoal", value)}
+      />
     </div>
   );
 };
