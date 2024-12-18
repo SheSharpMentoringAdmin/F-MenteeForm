@@ -2,6 +2,8 @@
 
 import { Provider } from "react-redux";
 import { store } from "@/redux/store/store";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function RootLayout({
   children,
@@ -11,7 +13,11 @@ export default function RootLayout({
   return (
     <html>
       <body suppressHydrationWarning>
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {children}
+          </LocalizationProvider>
+        </Provider>
       </body>
     </html>
   );

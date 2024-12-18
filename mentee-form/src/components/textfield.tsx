@@ -25,6 +25,7 @@ export default function FormPropsTextFields({
         label={label}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        sx={{ paddingBottom: 2 }}
       />
     </div>
   );

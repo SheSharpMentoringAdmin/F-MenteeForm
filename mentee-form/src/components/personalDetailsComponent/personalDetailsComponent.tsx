@@ -6,12 +6,16 @@ import { useSelector, useDispatch } from "react-redux";
 import FormPropsTextFields from "../textfield";
 import { useEffect, useState } from "react";
 import { addPersonalDetails } from "@/redux/slice/personalDetailsSlice";
+import { Box } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
 
 const PersonalDetailsComponent = () => {
   const personalDetailsState = useSelector(
     (state: RootState) => state.personalDetails
   );
   const dispatch = useDispatch();
+  const [val, setVal] = useState<Dayjs | null>(null); // State to store the selected date
 
   const [values, setValues] = useState<PersonalDetails>({
     fullName: personalDetailsState?.fullName || "",
@@ -31,12 +35,18 @@ const PersonalDetailsComponent = () => {
   }, [values, dispatch]);
 
   return (
-    <div>
+    <Box paddingTop={2}>
       <FormPropsTextFields
         label="Full Name"
         multiline={false}
         value={values.fullName}
         onChange={(value) => handleChange("fullName", value)}
+      />
+      <DatePicker
+        label="Uncontrolled picker"
+        format="DD/MM/YYYY"
+        value={val}
+        onChange={(newValue) => setVal(newValue)}
       />
       <FormPropsTextFields
         label="Date of Birth"
@@ -50,7 +60,7 @@ const PersonalDetailsComponent = () => {
         value={values.emailAddress}
         onChange={(value) => handleChange("emailAddress", value)}
       />
-    </div>
+    </Box>
   );
 };
 

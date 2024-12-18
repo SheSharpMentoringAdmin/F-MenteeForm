@@ -30,7 +30,7 @@ const GoalsComponent = () => {
     <div>
       <FormPropsTextFields
         multiline={true}
-        label="What level of agency (?) do you feel you have with your career?"
+        label="What level of agency do you feel you have with your career?"
         value={values.levelOfAgency}
         onChange={(value) => handleChange("levelOfAgency", value)}
       />
@@ -42,7 +42,7 @@ const GoalsComponent = () => {
       />
       <FormPropsTextFields
         multiline={true}
-        label="Why would you like a mentor / what would you like to get out of mentoring?"
+        label="What would you like to get out of mentoring?"
         value={values.mentoringGoal}
         onChange={(value) => handleChange("mentoringGoal", value)}
       />
