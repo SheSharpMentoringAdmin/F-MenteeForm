@@ -6,10 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import FormPropsTextFields from "../textfield";
 import { useEffect, useState } from "react";
 import { addPersonalDetails } from "@/redux/slice/personalDetailsSlice";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import { submitPersonalDetails } from "@/redux/actions/submitPersonalDetails";
 
 const PersonalDetailsComponent = () => {
   const personalDetailsState = useSelector(
@@ -62,7 +61,6 @@ const PersonalDetailsComponent = () => {
         value={values.emailAddress}
         onChange={(value) => handleChange("emailAddress", value)}
       />
-      <Button onClick={() => dispatch(submitPersonalDetails())}>Create</Button>
     </Box>
   );
 };
