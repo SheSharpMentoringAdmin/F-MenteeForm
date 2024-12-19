@@ -2,16 +2,18 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import FormPropsTextFields from "../textfield";
-import { RootState } from "@/redux/store/store";
+import { AppDispatch, RootState } from "@/redux/store/store";
 import { ProfessionalBackground } from "@/data/interface/professionalBackground/professionalBackground";
 import { useEffect, useState } from "react";
 import { addProfessionalBackground } from "@/redux/slice/professionalBackgroundSlice";
+import { Button } from "@mui/material";
+import { submitProfessionalBackground } from "@/redux/actions/submitProfessionalBackground";
 
 const ProfessionalBackgroundComponent = () => {
   const professionalBackgroundState = useSelector(
     (state: RootState) => state.professionalBackground
   );
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [values, setValues] = useState<ProfessionalBackground>({
     graduateProgram: professionalBackgroundState?.graduateProgram || "",
@@ -61,6 +63,9 @@ const ProfessionalBackgroundComponent = () => {
         value={values.bu_division_specialty}
         onChange={(value) => handleChange("bu_division_specialty", value)}
       />
+      <Button onClick={() => dispatch(submitProfessionalBackground())}>
+        Create
+      </Button>
     </div>
   );
 };

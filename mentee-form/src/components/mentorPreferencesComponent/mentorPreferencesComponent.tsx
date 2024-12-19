@@ -1,11 +1,13 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store/store";
+import { AppDispatch, RootState } from "@/redux/store/store";
 import { useEffect, useState } from "react";
 import { MentorPreferences } from "@/data/interface/mentorPreferences/mentorPreferences";
 import { addMentorPreferences } from "@/redux/slice/mentorPreferenceSlice";
 import SelectLabels from "../select";
+import { Button } from "@mui/material";
+import { submitMentorPreferences } from "@/redux/actions/submitMentorPreferences";
 
 const elements = [
   { item: "MALE" },
@@ -23,7 +25,7 @@ const MentorPreferencesComponent = () => {
   const mentorPreferencesState = useSelector(
     (state: RootState) => state.mentorPreferences
   );
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [values, setValues] = useState<MentorPreferences>({
     gender: mentorPreferencesState?.gender || "",
@@ -62,6 +64,9 @@ const MentorPreferencesComponent = () => {
         chosenValue={values?.personality}
         onSelectChange={(value) => handleChange("personality", value)}
       />
+      <Button onClick={() => dispatch(submitMentorPreferences())}>
+        Create
+      </Button>
     </div>
   );
 };

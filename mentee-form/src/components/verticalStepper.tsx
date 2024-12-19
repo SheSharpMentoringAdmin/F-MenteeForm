@@ -10,9 +10,19 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { steps } from "@/data/steps/steps";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store/store";
+import { useEffect } from "react";
+import { submitPersonalDetails } from "@/redux/actions/submitPersonalDetails";
+import { submitProfessionalBackground } from "@/redux/actions/submitProfessionalBackground";
+import { submitMentorPreferences } from "@/redux/actions/submitMentorPreferences";
+import { submitGoals } from "@/redux/actions/submitGoals";
+import { submitSkills } from "@/redux/actions/submitSkills";
+import { submitPersonalityType } from "@/redux/actions/submitPersonalityType";
 
 export default function VerticalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -25,6 +35,24 @@ export default function VerticalLinearStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  useEffect(() => {
+    const submitData = async () => {
+      Promise.all([
+        dispatch(submitPersonalDetails()),
+        dispatch(submitProfessionalBackground()),
+        dispatch(submitMentorPreferences()),
+        dispatch(submitGoals()),
+        dispatch(submitSkills()),
+        dispatch(submitPersonalityType()),
+      ]).then(() => {
+        console.log("success");
+      });
+    };
+    if (activeStep == 6) {
+      submitData();
+    }
+  }, [activeStep, dispatch]);
 
   return (
     <Box sx={{ backgroundColor: "white" }}>

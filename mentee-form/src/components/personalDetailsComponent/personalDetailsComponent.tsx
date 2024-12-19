@@ -1,20 +1,21 @@
 "use client";
 
 import { PersonalDetails } from "@/data/interface/personalDetails/personalDetails";
-import { RootState } from "@/redux/store/store";
+import { AppDispatch, RootState } from "@/redux/store/store";
 import { useSelector, useDispatch } from "react-redux";
 import FormPropsTextFields from "../textfield";
 import { useEffect, useState } from "react";
 import { addPersonalDetails } from "@/redux/slice/personalDetailsSlice";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
+import { submitPersonalDetails } from "@/redux/actions/submitPersonalDetails";
 
 const PersonalDetailsComponent = () => {
   const personalDetailsState = useSelector(
     (state: RootState) => state.personalDetails
   );
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [values, setValues] = useState<PersonalDetails>({
     fullName: personalDetailsState?.fullName || "",
@@ -61,6 +62,7 @@ const PersonalDetailsComponent = () => {
         value={values.emailAddress}
         onChange={(value) => handleChange("emailAddress", value)}
       />
+      <Button onClick={() => dispatch(submitPersonalDetails())}>Create</Button>
     </Box>
   );
 };

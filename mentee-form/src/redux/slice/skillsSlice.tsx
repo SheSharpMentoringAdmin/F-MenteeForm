@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { skillsInitialState } from "../initialState/skillsInitialState";
 import { Skills } from "@/data/interface/skills/skills";
+import { submitSkills } from "../actions/submitSkills";
 
 const skillsSlice = createSlice({
   name: "skills",
@@ -10,6 +11,11 @@ const skillsSlice = createSlice({
       state.softSkills = action.payload.softSkills;
       state.hardSkills = action.payload.hardSkills;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(submitSkills.fulfilled, () => {
+      console.log("success");
+    });
   },
 });
 

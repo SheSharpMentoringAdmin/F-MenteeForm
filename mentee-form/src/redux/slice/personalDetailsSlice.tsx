@@ -1,6 +1,7 @@
 import { PersonalDetails } from "@/data/interface/personalDetails/personalDetails";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { personalDetailsInitialState } from "../initialState/personalDetailsInitialState";
+import { submitPersonalDetails } from "../actions/submitPersonalDetails";
 
 const personalDetailsSlice = createSlice({
   name: "personalDetails",
@@ -11,6 +12,11 @@ const personalDetailsSlice = createSlice({
       state.emailAddress = action.payload.emailAddress;
       state.fullName = action.payload.fullName;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(submitPersonalDetails.fulfilled, () => {
+      console.log("success");
+    });
   },
 });
 

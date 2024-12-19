@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MentorPreferencesInitialState } from "../initialState/mentorPreferencesState";
 import { MentorPreferences } from "@/data/interface/mentorPreferences/mentorPreferences";
+import { submitMentorPreferences } from "../actions/submitMentorPreferences";
 
 const mentorPreferencesSlice = createSlice({
   name: "mentor preferences",
@@ -11,6 +12,11 @@ const mentorPreferencesSlice = createSlice({
       state.field = action.payload.field;
       state.personality = action.payload.personality;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(submitMentorPreferences.fulfilled, () => {
+      console.log("success");
+    });
   },
 });
 
